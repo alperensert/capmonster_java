@@ -1,0 +1,36 @@
+name: OSSRH Release 📦
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    publish:
+        name: Publish to Maven Central
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v2
+            - name: Set up Maven Central Repository
+              uses: actions/setup-java@v2
+              with:
+                  java-version: '8'
+                  distribution: 'adopt'
+                  server-id: ossrh
+                  server-username: MAVEN_USERNAME
+                  server-password: MAVEN_PASSWORD
+
+            - name: Install GPG secret key
+              run: echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+
+            - name: Publish to Maven Central
+              run: |
+                  mvn \
+                    --no-transfer-progress \
+                    --batch-mode \
+                    -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
+                    -DskipTests \
+                    -Prelease \
+                    deploy
+              env:
+                  MAVEN_USERNAME: ${{ secrets.REPO_USERNAME }}
+                  MAVEN_PASSWORD: ${{ secrets.REPO_PASSWORD }}

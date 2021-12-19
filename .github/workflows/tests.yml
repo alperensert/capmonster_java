@@ -1,0 +1,27 @@
+name: Package Tests 📦
+
+on:
+    schedule:
+        - cron: '0 3 * * SUN'
+    push:
+        branches:
+            - master
+
+jobs:
+    tests:
+        name: Build and run tests with Junit 5
+        runs-on: ubuntu-20.04
+        steps:
+            - uses: actions/checkout@v2
+            - name: Set up Java 8
+              uses: actions/setup-java@v2
+              with:
+                  java-version: '8'
+                  distribution: 'adopt'
+
+            - name: Build and run tests with Junit 5
+              run: mvn test
+              env:
+                  CAPMONSTER_API_KEY: ${{ secrets.CAPMONSTER_API_KEY }}
+                  USER_AGENT: ${{ secrets.USER_AGENT }}
+                  PROXY: ${{ secrets.PROXY }}
