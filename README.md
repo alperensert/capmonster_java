@@ -14,12 +14,12 @@ If you have any problem with usage, [read the documentation](https://github.com/
     <dependency>
         <groupId>io.github.alperensert</groupId>
         <artifactId>capmonster_java</artifactId>
-        <version>1.3</version>
+        <version>RELEASE</version>
     </dependency>
     ```
 - Gradle
     ```groovy
-    implementation group: 'io.github.alperensert', name: 'capmonster_java', version: '1.3'
+    implementation group: 'io.github.alperensert', name: 'capmonster_java', version: 'RELEASE'
     ```
 
 ### Supported captcha types
