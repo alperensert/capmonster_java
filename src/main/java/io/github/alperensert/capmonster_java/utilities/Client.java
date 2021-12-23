@@ -163,7 +163,7 @@ public abstract class Client {
             method = taskResultUrl;
         } else if (Objects.equals(method, "createTask")) {
             method = createTaskUrl;
-            data.put("softId", 30);
+            data.put("softId", 51);
         }
         try {
             response = requestHandler(hostUrl + method, data);
