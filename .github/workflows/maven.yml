@@ -22,6 +22,9 @@ jobs:
             - name: Install GPG secret key
               run: echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
 
+            - name: Set new version
+              run: mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
+
             - name: Publish to Maven Central
               run: |
                   mvn \
